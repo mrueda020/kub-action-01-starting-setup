@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  #name of the service
+  name: backend 
+spec:
+   # The selector specifies which pods the service should be exposed to.
+  selector:
+    app: first-app
+    # The ports section defines the port that the service exposes and the port that the pods listen on.
+  ports:
+  - port: 81
+    targetPort: 8080
+    protocol: 'TCP'
+  type: LoadBalancer  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: declarative-deployment 
+spec:
+  replicas: 1
+  # The selector specifies which pods the deployment should manage.
+  selector:
+    matchLabels:
+      app: first-app
+  # The template specifies the pod definition that will be used to create the pods.    
+  template:
+    metadata:
+      # The labels to apply to the pods.
+      labels:
+        app: first-app 
+    spec: 
+      # The containers section defines the containers that will be run in the pods.
+      containers:
+        - name: first-app
+         # The image to use for the container from docker  
+          image: mrueda020/my-first-app:2
