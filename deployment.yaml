@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: declarative-deployment #Name of the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: first-app
+  template:
+    metadata:
+      labels:
+        app: first-app #labels are up to us
+    spec: #spec for individual pods
+      containers:
+        - name: first-app  #name of the container
+          image: mrueda020/my-first-app:2
